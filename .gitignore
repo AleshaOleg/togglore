@@ -90,3 +90,12 @@ ENV/
 
 # Jetbrains
 .idea
+
+.cache*
+
+Pipfile
+Pipfile.lock
+credentials.json
+tags
+token.pickle
+runtime.env
