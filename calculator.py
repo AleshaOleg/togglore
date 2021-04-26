@@ -49,6 +49,9 @@ try:
 except KeyError:
     raise RuntimeError('please set the HOURS_PER_DAY environment variable.')
 
+
+CACHE_ENABLED = bool(os.environ.get('CACHE_ENABLED', False))
+
 # RECRUITMENT_DATE = datetime.date(2017, 9, 15)
 # WORKING_DAYS = [MON, TUE, THU, FRI]
 # HOURS_PER_DAY = 8
@@ -117,6 +120,9 @@ def save_obj(obj, name):
 
 
 def load_obj(name):
+    if not CACHE_ENABLED:
+        raise RuntimeError('cache disabled.')
+
     with open(f'.cache_{name}.pkl', 'rb') as f:
         return pickle.load(f)
 
@@ -220,7 +226,7 @@ class LifeWorkBalance(object):
 
     def _fetch_time_entries(self, refresh=False):
         cache_name = 'toggle_entries'
-        if not refresh:
+        if not refresh and CACHE_ENABLED:
             try:
                 self.time_entries = load_obj(cache_name)
                 print('using cache instead of querying toggl.')
