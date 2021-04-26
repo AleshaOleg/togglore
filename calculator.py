@@ -191,7 +191,10 @@ class LifeWorkBalance(object):
         }
 
     def _add_worktime_to_map(self, label, hours):
-        self.map[label]['hours_actually_worked'] += hours
+        try:
+            self.map[label]['hours_actually_worked'] += hours
+        except KeyError as ex:
+            print(ex)
 
     def _deflate_vacations(self):
         vacation_days = []
