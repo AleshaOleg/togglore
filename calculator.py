@@ -45,7 +45,7 @@ except KeyError:
     raise RuntimeError('please set the WORKING_DAYS environment variable.')
 
 try:
-    HOURS_PER_DAY = int(os.environ['HOURS_PER_DAY'])
+    HOURS_PER_DAY = float(os.environ['HOURS_PER_DAY'])
 except KeyError:
     raise RuntimeError('please set the HOURS_PER_DAY environment variable.')
 
